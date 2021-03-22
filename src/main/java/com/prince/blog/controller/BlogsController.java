@@ -22,6 +22,12 @@ public class BlogsController {
         return  blogs;
     }
 
+    @GetMapping("/blogs/{email}")
+    public List<Blogs> getAllBlogsByUser(@PathVariable("email") String email){
+        List<Blogs> blogs = blogsService.getAllBlogsByUser(email);
+        return  blogs;
+    }
+
     @PostMapping("/blog/{id}/{email}")
     public Blogs allocateUser(@PathVariable("id") String id, @PathVariable("email") String email){
         // fetch the Blogs object

@@ -6,6 +6,7 @@ import com.prince.blog.repository.BlogsRepository;
 import com.prince.blog.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,11 +20,20 @@ public class BlogsService {
     @Autowired
     UsersRepository usersRepository;
 
+
     public List<Blogs> getAllBlogs(){
         List<Blogs> blogs = blogsRepository.findAll();
         return blogs;
     }
 
+    public List<Blogs> getAllBlogsByUser(String email){
+        //get the user from email
+        Users user = usersRepository.findById(email).get();
+        // get all the blogs by user
+        System.out.println(user.getBlogs().get(0).getContent());
+        List<Blogs> blogs = user.getBlogs();
+        return blogs;
+    }
 
     public Blogs addBlog(Blogs blog) {
         Blogs blog1 = blogsRepository.save(blog);
@@ -66,14 +76,12 @@ public class BlogsService {
         //check if user exists in the db
         Optional<Users> user1 = usersRepository.findById(email);
         if(user1.isPresent()){
-            blog.setUser(user1.get());
-            blogsRepository.save(blog);
-        }
-//        else{
-//            usersRepository.save(user1.get());
 //            blog.setUser(user1.get());
-//            blogsRepository.save(blog);
-//        }
+
+            user1.get().addBlog(blog);
+            blogsRepository.save(blog);
+            return blog;
+        }
         return blog;
     }
 }
