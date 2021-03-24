@@ -30,7 +30,7 @@ public class BlogsService {
         //get the user from email
         Users user = usersRepository.findById(email).get();
         // get all the blogs by user
-        System.out.println(user.getBlogs().get(0).getContent());
+//        System.out.println(user.getBlogs().get(0).getContent());
         List<Blogs> blogs = user.getBlogs();
         return blogs;
     }

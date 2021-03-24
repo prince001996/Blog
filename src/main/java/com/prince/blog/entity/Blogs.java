@@ -26,9 +26,7 @@ public class Blogs {
     @ManyToOne
     private Users user;
 
-//    @JsonIgnore
-    @ManyToMany()
-    @JoinTable(name = "blogs_categories", joinColumns = {@JoinColumn(name = "blog_id")}, inverseJoinColumns = {@JoinColumn(name = "category_id")})
+    @ManyToMany(mappedBy = "blogs_categories")
     private List<Categories> categories;
     public void addCategory(Categories category){ this.categories.add(category); }
     public void removeCategory(Categories category){
@@ -36,7 +34,7 @@ public class Blogs {
     }
 
 
-    @ManyToMany(mappedBy = "blogs")
+    @ManyToMany(mappedBy = "blogs_comments")
     private List<Comments> comments;
     public void addComment(Comments comment){
         this.comments.add(comment);
@@ -44,7 +42,5 @@ public class Blogs {
     public void removeComment(Comments comment){
         this.comments.remove(comment);
     }
-
-
 
 }

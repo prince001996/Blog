@@ -33,7 +33,7 @@ public class Users {
     }
 
 
-    @ManyToMany(mappedBy = "users")
+    @ManyToMany(mappedBy = "users_comments")
     private List<Comments> comments;
     public void addComment(Comments comment){
         this.comments.add(comment);
@@ -41,6 +41,5 @@ public class Users {
     public void removeComment(Comments comment){
         this.comments.remove(comment);
     }
-
 
 }

@@ -1,5 +1,6 @@
 package com.prince.blog.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,24 +18,26 @@ public class Comments {
     private String id;
     private String content;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "blogs_comments", joinColumns = {@JoinColumn(name = "comment_id")}, inverseJoinColumns = {@JoinColumn(name = "blog_id")})
-    private List<Blogs> blogs;
+    private List<Blogs> blogs_comments;
     public void addBlog(Blogs blog){
-        this.blogs.add(blog);
+        this.blogs_comments.add(blog);
     }
     public void removeBlog(Blogs blog){
-        this.blogs.remove(blog);
+        this.blogs_comments.remove(blog);
     }
 
+    @JsonIgnore
     @ManyToMany
-    @JoinTable(name = "blogs_comments", joinColumns = {@JoinColumn(name = "comment_id")}, inverseJoinColumns = {@JoinColumn(name = "email")})
-    private List<Users> users;
+    @JoinTable(name = "users_comments", joinColumns = {@JoinColumn(name = "comment_id")}, inverseJoinColumns = {@JoinColumn(name = "email")})
+    private List<Users> users_comments;
     public void addUser(Users user){
-        this.users.add(user);
+        this.users_comments.add(user);
     }
     public void removeUser(Users user){
-        this.users.remove(user);
+        this.users_comments.remove(user);
     }
 
 }

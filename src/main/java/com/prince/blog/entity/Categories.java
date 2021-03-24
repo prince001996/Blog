@@ -2,7 +2,6 @@ package com.prince.blog.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,12 +20,13 @@ public class Categories {
     private String category_name;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "categories")
-    private List<Blogs> blogs;
+    @ManyToMany
+    @JoinTable(name = "blogs_categories", joinColumns = {@JoinColumn(name = "category_id")}, inverseJoinColumns = {@JoinColumn(name = "blog_id")})
+    private List<Blogs> blogs_categories;
     public void addBlog(Blogs blog){
-        this.blogs.add(blog);
+        this.blogs_categories.add(blog);
     }
     public void removeBlog(Blogs blog){
-        this.blogs.remove(blog);
+        this.blogs_categories.remove(blog);
     }
 }
