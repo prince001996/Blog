@@ -32,8 +32,9 @@ public class Users {
         this.blogs.remove(blog);
     }
 
-
-    @ManyToMany(mappedBy = "users_comments")
+    @JsonIgnore
+    @OneToMany
+    @JoinColumn(name = "user_email",referencedColumnName = "email")
     private List<Comments> comments;
     public void addComment(Comments comment){
         this.comments.add(comment);
