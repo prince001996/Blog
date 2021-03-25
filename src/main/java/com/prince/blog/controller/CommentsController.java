@@ -28,12 +28,12 @@ public class CommentsController {
 
     @PostMapping("/comments/{email}/{blogId}")
     public String addComment(@PathVariable("email") String email, @PathVariable("blogId") String blogId, @RequestBody Comments comment){
-        Comments comment1 = commentsService.addComment(comment);
-//        commentsService.associateUser(email, comment1);
-        commentsService.associateBlog(blogId, comment1);
-
-        return "Comment added to blog with id - " + blogId + " by user with id - " + email;
+        return commentsService.addComment(comment, email, blogId);
     }
 
+    @GetMapping("/comments")
+    public List<Comments> getAll(){
+        return commentsService.getAll();
+    }
 
 }
